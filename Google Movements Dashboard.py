@@ -11,7 +11,7 @@ import sys
 
 ##### Set TRUE to download fresh data, Set FALSE to use CSV already saved locally (you must have a CSV saved locally)
 
-refresh = False
+refresh = True
 
 #Name of csv to look for, or name to save as
 name = "Google Movements GB.csv"
