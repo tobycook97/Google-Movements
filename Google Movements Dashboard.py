@@ -11,6 +11,7 @@ import sys
 
 ##### Set TRUE to download fresh data, Set FALSE to use CSV already saved locally (you must have a CSV saved locally)
 
+
 refresh = True
 
 #Name of csv to look for, or name to save as
@@ -30,16 +31,26 @@ else:
         print(f'There is an error: {e} check CSV saved to the right file path. Or set refresh = True')
         sys.exit()
 
+# Map regions to one of the four nations. This relies on regions_csv file. CSV should be saved in same folder as code 
 
+region_mapping = pd.read_csv(os.path.join(os.path.dirname(__file__),'regions_csv.csv'))
+
+df.sub_region_1 = df.sub_region_1.fillna('All')
+
+df.sub_region_2 = df.sub_region_2.fillna('All')
+
+# Using regions csv map the regions to the correct nation
+df = df.merge(region_mapping,how='left',on=['sub_region_1'])
 
 
 df.sub_region_1 = df.sub_region_1.fillna('All')
 df.sub_region_2 = df.sub_region_2.fillna('All')
 
+# force dates to be datetime
 df['date'] = pd.to_datetime(df['date'])
 
 region_options_1 = df["sub_region_1"].unique()
-
+nation_options = df['Nation'].unique()
 
 app = dash.Dash()
 
