@@ -7,12 +7,14 @@ import pandas as pd
 from datetime import date
 import os
 import sys
+import webbrowser
+from threading import Timer
 
 
 ##### Set TRUE to download fresh data, Set FALSE to use CSV already saved locally (you must have a CSV saved locally)
 
 
-refresh = True
+refresh = False
 
 #Name of csv to look for, or name to save as
 name = "Google Movements GB.csv"
@@ -126,21 +128,32 @@ def update_graph(Region_1,Region_2,on):
         
         df_rolling[columns] = df_plot[columns].rolling(window=7).mean()
     
-    trace1 = go.Scatter(x=df_rolling.date, y=df_rolling['retail_and_recreation_percent_change_from_baseline'], name='Retail')
+    trace1 = go.Scatter(x=df_rolling.date, y=df_rolling['retail_and_recreation_percent_change_from_baseline'], name='Retail and Recreation')
     trace2 = go.Scatter(x=df_rolling.date, y=df_rolling['grocery_and_pharmacy_percent_change_from_baseline'], name='Grocery and Pharmacy')
     trace3 = go.Scatter(x=df_rolling.date, y=df_rolling['parks_percent_change_from_baseline'], name='Parks')
     trace4 = go.Scatter(x=df_rolling.date, y=df_rolling['transit_stations_percent_change_from_baseline'], name='Transit Stations')
     trace5 = go.Scatter(x=df_rolling.date, y=df_rolling['workplaces_percent_change_from_baseline'], name='Work')
     trace6 = go.Scatter(x=df_rolling.date, y=df_rolling['residential_percent_change_from_baseline'], name='Residential')
-
+    if Region_1 == 'All':
+        place = 'United Kingdom'
+    else: 
+        place = Region_1
     return {
     'data': [trace1, trace2, trace3, trace4,trace5,trace6],
     'layout':
     go.Layout(
-        title='Google Movement Data for {}'.format(Region_1))
+        title='Google Movement Data for {}'.format(place))
 }
 
+# Open browser and set port:
+
+port = 8050
+
+def open_browser():
+    webbrowser.open_new("http://localhost:{}".format(port))
+
 if __name__ == '__main__':
+    Timer(1, open_browser).start()
     app.run_server(debug=True)
 
 
