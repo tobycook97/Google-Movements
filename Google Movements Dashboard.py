@@ -19,6 +19,16 @@ refresh = False
 #Name of csv to look for, or name to save as
 name = "Google Movements GB.csv"
 
+# Set dtypes:
+
+# dtype = {'country_region_code':'category',
+# 	    'country_region':'string',
+#         'sub_region_1':'string',
+#         'sub_region_2':'string',
+#         'metro_area':'category'
+#         'iso_3166_2_code':	census_fips_code	place_id	date	retail_and_recreation_percent_change_from_baseline	grocery_and_pharmacy_percent_change_from_baseline	parks_percent_change_from_baseline	transit_stations_percent_change_from_baseline	workplaces_percent_change_from_baseline	residential_percent_change_from_baseline
+# }
+
 if refresh:
     # download data
     df = pd.read_csv("https://www.gstatic.com/covid19/mobility/Global_Mobility_Report.csv", header=0,parse_dates=[8], low_memory=False)
@@ -155,5 +165,3 @@ def open_browser():
 if __name__ == '__main__':
     Timer(1, open_browser).start()
     app.run_server(debug=True)
-
-
