@@ -14,7 +14,7 @@ from threading import Timer
 ##### Set TRUE to download fresh data, Set FALSE to use CSV already saved locally (you must have a CSV saved locally)
 
 
-refresh = False
+refresh = True
 
 #Name of csv to look for, or name to save as
 name = "Google Movements GB.csv"
@@ -112,7 +112,7 @@ app.layout = html.Div([
     dash.dependencies.Output('Region_2_dropdown', 'options'),
     [dash.dependencies.Input('Region_1_dropdown', 'value')]
 )
-def update_date_dropdown(Region_1):
+def update_dropdown(Region_1):
     return [{'label': Region_2, 'value': Region_2} for Region_2 in df[df['sub_region_1']==Region_1]['sub_region_2'].unique()]
 
 @app.callback(
