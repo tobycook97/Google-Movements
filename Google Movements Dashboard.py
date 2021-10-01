@@ -14,7 +14,7 @@ from threading import Timer
 ##### Set TRUE to download fresh data, Set FALSE to use CSV already saved locally (you must have a CSV saved locally)
 
 
-refresh = True
+refresh = False
 
 #Name of csv to look for, or name to save as
 name = "Google Movements GB.csv"
@@ -164,4 +164,4 @@ def open_browser():
 
 if __name__ == '__main__':
     Timer(1, open_browser).start()
-    app.run_server(debug=True)
+    app.run_server(debug=False)
