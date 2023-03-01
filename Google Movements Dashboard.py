@@ -13,6 +13,7 @@ from threading import Timer
 
 ##### Set TRUE to download fresh data, Set FALSE to use CSV already saved locally (you must have a CSV saved locally)
 
+# Thanks for putting this together Toby
 
 refresh = False
 
